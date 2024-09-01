@@ -5,12 +5,16 @@
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-    {"folke/tokyonight.nvim", enabled = false},
     { "projekt0n/github-nvim-theme" },
     {
         "LazyVim/LazyVim",
+        tag = "v12.38.2",
         opts = {
-            colorscheme = "github_dark",
+        colorscheme = "github_dark",
         },
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        opts = { ensure_installed = { "cpp" } },
     },
 }

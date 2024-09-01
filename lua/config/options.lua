@@ -4,7 +4,6 @@
 
 ---- utf8
 vim.g.encoding = "UTF-8"
-vim.o.fileencoding = "utf-8"
 -- 缩进4个空格等于一个Tab
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -16,3 +15,5 @@ vim.opt.expandtab = true
 vim.opt.listchars = "space:·"
 -- 关闭自动 format
 vim.g.autoformat = false
+
+vim.diagnostic.enable(false)  --disable diagnostic on startup
