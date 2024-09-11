@@ -20,7 +20,14 @@ return {
             end,
         },
         mapping = cmp.mapping.preset.insert({
-                ['<tab>'] = cmp.mapping.confirm({ select = true })
+                ['<tab>'] = cmp.mapping(function(fallback)
+                    -- Hint: if the completion menu is visible select next one
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }), -- i - insert mode; s - select mode
             }),
         -- 补全源
         sources = cmp.config.sources({

@@ -5,16 +5,24 @@
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-    { "projekt0n/github-nvim-theme" },
+    {"catppuccin/nvim", enabled = false},
+    {"folke/tokyonight.nvim", enabled = false},
+    { "EdenEast/nightfox.nvim" },
     {
         "LazyVim/LazyVim",
         tag = "v12.38.2",
         opts = {
-        colorscheme = "github_dark",
+        colorscheme = 'terafox',
         },
     },
     {
         "nvim-treesitter/nvim-treesitter",
         opts = { ensure_installed = { "cpp" } },
     },
+    {
+        "nvim-telescope/telescope.nvim",
+        keys = {
+            { "<leader><space>" , ":", desc = "Switch Command mode",},
+        },
+    }
 }
