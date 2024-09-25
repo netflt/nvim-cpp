@@ -1,11 +1,10 @@
-
 return {
     "hrsh7th/nvim-cmp",
     dependencies = {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/vim-vsnip"
     },
-    init = function()
+    config = function()
         local cmp = require("cmp")
         cmp.setup({
         -- 指定 snippet 引擎

@@ -2,6 +2,10 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+
 local map = vim.api.nvim_set_keymap
 
 -- 复用 opt 参数
@@ -21,8 +25,6 @@ map("n", "so", "<C-w>o", opt)
 map("n", "H", "<C-w>h", opt)
 map("n", "L", "<C-w>l", opt)
 -- 左右Tab切换
-map("n", ";", ":BufferLineCyclePrev<CR>", opt)
-map("n", "'", ":BufferLineCycleNext<CR>", opt)
 
 -- 跳到行首行尾
 map('n', '<C-h>', '^', opt)
@@ -56,37 +58,3 @@ map("n", "Q", ":qa!<CR>", opt)
 
 map("t", "<Esc>", "<C-\\><C-n>", opt)
 
---cmake
-map("n", "<leader>cg", ":CMakeGenerate<CR>", opt)
-map("n", "<leader>cb", ":CMakeBuild<CR>", opt)
-map("n", "<leader>ci", ":CMakeInstall<CR>", opt)
-
---dap debug
---map ("n",
---    "<leader>ds",
---    ":lua if vim.fn.filereadable('launch.json') then require('dap.ext.vscode').load_launchjs('launch.json', {lldb = {'c', 'cpp'}}) end<CR>"
---    .. ":lua require('dap').continue()<CR>",
---    opt
---)
-
-map(
-    "n",
-    "<leader>de",
-    ":lua require'dap'.close()<CR>"
-        .. ":lua require'dap'.terminate()<CR>"
-        .. ":lua require'dap.repl'.close()<CR>",
-    opt
-)
-
-map("n", "<F5>", ":lua require('dap').continue()<CR>", opt)
-map("n", "<F6>", ":lua require('dap').step_over()<CR>", opt)
-map("n", "<F7>", ":lua require('dap').step_into()<CR>", opt)
-map("n", "<F8>", ":lua require('dap').step_out()<CR>", opt)
-
-map("n", "<F9>", ":lua require('dap').toggle_breakpoint()<CR>", opt)
-map("n", "<F10>", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opt)
-map("n", "<F11>", ":lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') })<CR>", opt)
-map("n", "<F1>", ":lua require('dap.ui.variables').hover()<CR>", opt)
-map("v", "<F2>", ":lua require('dap.ui.variables').visual_hover()<CR>", opt)
-map("n", "<F3>", ":lua require('dap').clear_breakpoints()<CR>", opt)
-map("n", "<F4>", ":lua require('dapui').toggle()<CR>", opt)
