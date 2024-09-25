@@ -6,7 +6,6 @@ return  { -- Fuzzy Finder (files, lsp, etc)
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'jonarrien/telescope-cmdline.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
         'nvim-telescope/telescope-fzf-native.nvim',
         -- `build` is used to run some command when the plugin is installed/updated.
@@ -21,9 +20,6 @@ return  { -- Fuzzy Finder (files, lsp, etc)
       },
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-    },
-    keys = {
-        { ':', '<cmd>Telescope cmdline<cr>', desc = '[S]witch to command mode' },
     },
     opts = {
         ['ui-select'] = {
@@ -49,8 +45,6 @@ return  { -- Fuzzy Finder (files, lsp, etc)
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup(opts)
-      require("telescope").load_extension('cmdline')
-
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
@@ -66,7 +60,7 @@ return  { -- Fuzzy Finder (files, lsp, etc)
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', "<leader><space>", "<cmd>Telescope cmdline<cr>", {desc = "[S]witch to command mode"})
+      vim.keymap.set('n', "<leader><space>", ":", {desc = "[S]witch to command mode"})
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
