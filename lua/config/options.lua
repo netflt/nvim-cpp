@@ -13,7 +13,7 @@ vim.wo.signcolumn = 'yes'
 
 vim.g.have_nerd_font = true
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
+vim.o.mousemoveevent = true
 
 local opt = vim.opt
 opt.tabstop = 4

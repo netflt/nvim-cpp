@@ -25,9 +25,10 @@ require("lazy").setup({
             -- You can configure highlights by doing something like:
             vim.cmd.hi 'Comment gui=none'
             end,
-        },	  
+        },
         -- import/override with your plugins
         { import = "plugins" },
+        { import = "plugins.coding" },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -35,8 +36,8 @@ require("lazy").setup({
         lazy = false,
         -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
         -- have outdated releases, which may break your Neovim install.
-        --version = false, -- always use the latest git commit
-        version = "*", -- try installing the latest stable version for plugins that support semver
+        version = false, -- always use the latest git commit
+        --version = "*", -- try installing the latest stable version for plugins that support semver
     },
     install = { colorscheme = { "nightfox" } },
     checker = {

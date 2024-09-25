@@ -51,10 +51,10 @@ map("v", "<leader>j", "<C-]>", opt)
 map("n", "<leader>k", "<C-o>", opt)
 map("v", "<leader>k", "<C-o]>", opt)
 
+map("n", "<leader>l", ":Lazy<CR>", opt)
+
 -- 退出
 map("n", "q", ":q<CR>", opt)
 map("n", "qq", ":q!<CR>", opt)
 map("n", "Q", ":qa!<CR>", opt)
-
 map("t", "<Esc>", "<C-\\><C-n>", opt)
-
