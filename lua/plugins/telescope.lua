@@ -23,9 +23,7 @@ return  { -- Fuzzy Finder (files, lsp, etc)
     opts = {
         defaults = {
             mappings = {
-              n = {
-                ["q"] = require("telescope.actions").close,
-              },
+             
             },
             prompt_prefix = " ",
             selection_caret = " ",
