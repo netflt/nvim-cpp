@@ -1,3 +1,4 @@
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -21,7 +22,7 @@ require("lazy").setup({
             priority = 1000, -- Make sure to load this before all the other start plugins.
             init = function()
             -- Load the colorscheme here.
-            vim.cmd.colorscheme 'nightfox'
+            vim.cmd.colorscheme 'terafox'
             -- You can configure highlights by doing something like:
             vim.cmd.hi 'Comment gui=none'
             end,

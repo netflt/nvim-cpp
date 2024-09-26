@@ -1,7 +1,42 @@
+
 -- Neo-tree is a Neovim plugin to browse the file system
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
 return {
+    -- icons
+    {
+        'akinsho/bufferline.nvim', 
+        version = "*", 
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        event = "VeryLazy",
+        keys = {
+            { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+            { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
+            { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
+            { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
+            { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
+            { "<C-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+            { "<C-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+            { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+            { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+            { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+            { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+        },
+        opts = {
+            options = {
+                diagnostics = "nvim_lsp",
+                always_show_bufferline = false,
+                offsets = {
+                    {
+                    filetype = "neo-tree",
+                    text = "Neo-tree",
+                    highlight = "Directory",
+                    text_align = "left",
+                    },
+                },
+            },
+        },
+    },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -10,55 +45,41 @@ return {
         -- this is equivalent to setup({}) function
     },
     {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        ---@module "ibl"
-        ---@type ibl.config
-        opts = {},
-    },
-    {
         'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        event = "VeryLazy",
+        init = function()
+            vim.g.lualine_laststatus = vim.o.laststatus
+            if vim.fn.argc(-1) > 0 then
+              -- set an empty statusline till lualine loads
+              vim.o.statusline = " "
+            else
+              -- hide the statusline on the starter page
+              vim.o.laststatus = 0
+            end
+        end,
         opts = {
             options = {
-              icons_enabled = true,
-              theme = 'auto',
-              component_separators = { left = '', right = ''},
-              section_separators = { left = '', right = ''},
-              disabled_filetypes = {
-                statusline = {},
-                winbar = {},
-              },
-              ignore_focus = {},
-              always_divide_middle = true,
-              globalstatus = false,
-              refresh = {
-                statusline = 1000,
-                tabline = 1000,
-                winbar = 1000,
-              }
+                theme = "auto",
+                globalstatus = vim.o.laststatus == 3,
+                disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter" } },
             },
             sections = {
               lualine_a = {'mode'},
               lualine_b = {'branch', 'diff', 'diagnostics'},
               lualine_c = {'filename'},
               lualine_x = {'encoding', 'fileformat', 'filetype'},
-              lualine_y = {'progress'},
-              lualine_z = {'location'}
+              lualine_y = {
+                { "progress", separator = " ", padding = { left = 1, right = 0 } },
+                { "location", padding = { left = 0, right = 1 } },
+              },
+              lualine_z = {
+                function()
+                  return " " .. os.date("%R")
+                end,
+              },
             },
-            inactive_sections = {
-              lualine_a = {},
-              lualine_b = {},
-              lualine_c = {'filename'},
-              lualine_x = {'location'},
-              lualine_y = {},
-              lualine_z = {}
-            },
-            tabline = {},
-            winbar = {},
-            inactive_winbar = {},
-            extensions = {}
-          }
+            extensions = { "neo-tree" }
+        }
     },
     {
         "folke/noice.nvim",
@@ -90,5 +111,136 @@ return {
                 },
               })
         end
-    }
+    },
+    -- search/replace in multiple files
+    {
+        "MagicDuck/grug-far.nvim",
+        opts = { headerMaxWidth = 80 },
+        cmd = "GrugFar",
+        keys = {
+        {
+            "<leader>sr",
+            function()
+            local grug = require("grug-far")
+            local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+            grug.grug_far({
+                transient = true,
+                prefills = {
+                filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+                },
+            })
+            end,
+            mode = { "n", "v" },
+            desc = "Search and Replace",
+        },
+        },
+    },
+      -- indent guides for Neovim
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        opts = function()
+            return {
+            indent = {
+                char = "│",
+                tab_char = "│",
+            },
+            scope = { show_start = false, show_end = false },
+            exclude = {
+                filetypes = {
+                "help",
+                "alpha",
+                "dashboard",
+                "neo-tree",
+                "Trouble",
+                "trouble",
+                "lazy",
+                "notify",
+                "toggleterm",
+                },
+            },
+            }
+        end,
+        main = "ibl",
+          
+    },
+    {
+        "echasnovski/mini.indentscope",
+        version = false, -- wait till new 0.7.0 release to put it back on semver
+        opts = {
+          -- symbol = "▏",
+          symbol = "│",
+          options = { try_as_border = true },
+        },
+        init = function()
+          vim.api.nvim_create_autocmd("FileType", {
+            pattern = {
+              "alpha",
+              "dashboard",
+              "fzf",
+              "help",
+              "lazy",
+              "neo-tree",
+              "notify",
+              "toggleterm",
+              "Trouble",
+              "trouble",
+            },
+            callback = function()
+              vim.b.miniindentscope_disable = true
+            end,
+          })
+        end,
+      },
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+        -- use opts = {} for passing setup options
+        -- this is equivalent to setup({}) function
+    },
+    {
+        'akinsho/toggleterm.nvim', 
+        version = "*", 
+        opts = {
+            open_mapping = [[<leader>t]],
+            direction = 'float',
+            shade_terminals = true
+        }
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        event = "VeryLazy",
+        opts = {
+            ensure_installed = { "cpp", "c", "json", "bash", "css", "vim", "lua", "javascript", "typescript", "tsx" },
+            -- 启用代码高亮模块
+            highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false,
+            },
+            -- 启用增量选择模块
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = "<CR>",
+                    node_incremental = "<CR>",
+                    node_decremental = "<BS>",
+                    scope_incremental = "<TAB>",
+                },
+            },
+            -- 启用代码缩进模块 (=)
+            indent = {
+                enable = true,
+            },
+        },
+        config = function(_, opts)
+            local status, treesitter = pcall(require, "nvim-treesitter.configs")
+            if not status then
+                vim.notify("can't find nvim-treesitter")
+                return
+            end
+
+            treesitter.setup(opts)
+        end
+      },
+
 }
