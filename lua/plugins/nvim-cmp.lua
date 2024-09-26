@@ -4,7 +4,8 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/vim-vsnip",
         "hrsh7th/cmp-path",
-        'hrsh7th/cmp-nvim-lsp'
+        'hrsh7th/cmp-nvim-lsp',
+        "hrsh7th/cmp-buffer"
     },
     config = function()
         local cmp = require("cmp")
@@ -42,7 +43,14 @@ return {
         cmp.setup.cmdline("/", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = {
-                { name = "buffer" },
+                {
+                    name = "buffer", 
+                    option = {
+                        get_bufnrs = function()
+                            return vim.api.nvim_list_bufs()
+                        end
+                    }
+                }
             },
         })
 
