@@ -42,7 +42,6 @@ return {
     end,
     opts = {
         enable_git_status = true,
-        enable_diagnostics = true,
         open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
         sort_case_insensitive = false, -- used when sorting files and directories in the tree
         sort_function = nil , -- use a custom function for sorting files and directories in the tree 
@@ -97,15 +96,17 @@ return {
               ["P"] = { "toggle_preview", config = { use_float = false } },
             },
         },
-        filtered_items = {
-            visible = true,
-            show_hidden_count = true,
-            hide_dotfiles = false,
-            hide_gitignored = false,
-            hide_by_name = {
-                --'.git', '.DS_Store',  -- 'thumbs.db',
+        filesystem = {
+            filtered_items = {
+                visible = true,
+                show_hidden_count = true,
+                hide_dotfiles = false,
+                hide_gitignored = true,
+                hide_by_name = {
+                    --'.git', '.DS_Store',  -- 'thumbs.db',
+                },
+                never_show = {'.git'},
             },
-            never_show = {'.git'},
-        },
+        }
     },
 }

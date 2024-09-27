@@ -112,16 +112,16 @@ return {
         cmd = "GrugFar",
         keys = {
         {
-            "<leader>sr",
+            "<leader>r",
             function()
-            local grug = require("grug-far")
-            local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-            grug.grug_far({
-                transient = true,
-                prefills = {
-                filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-                },
-            })
+                local grug = require("grug-far")
+                local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+                grug.grug_far({
+                    transient = true,
+                    prefills = {
+                    filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+                    },
+                })
             end,
             mode = { "n", "v" },
             desc = "Search and Replace",
@@ -165,25 +165,25 @@ return {
           options = { try_as_border = true },
         },
         init = function()
-          vim.api.nvim_create_autocmd("FileType", {
-            pattern = {
-              "alpha",
-              "dashboard",
-              "fzf",
-              "help",
-              "lazy",
-              "neo-tree",
-              "notify",
-              "toggleterm",
-              "Trouble",
-              "trouble",
-            },
-            callback = function()
-              vim.b.miniindentscope_disable = true
-            end,
-          })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = {
+                "alpha",
+                "dashboard",
+                "fzf",
+                "help",
+                "lazy",
+                "neo-tree",
+                "notify",
+                "toggleterm",
+                "Trouble",
+                "trouble",
+                },
+                callback = function()
+                vim.b.miniindentscope_disable = true
+                end,
+            })
         end,
-      },
+    },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -195,7 +195,6 @@ return {
         'akinsho/toggleterm.nvim', 
         version = "*", 
         opts = {
-            open_mapping = [[<leader>t]],
             direction = 'float',
             shade_terminals = true
         }

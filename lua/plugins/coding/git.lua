@@ -1,7 +1,7 @@
 return {
     {
         "tanvirtin/vgit.nvim",
-        event = VeryLazy,
+        event = "VeryLazy",
         dependencies = {
             'nvim-lua/plenary.nvim'
         },
@@ -18,6 +18,10 @@ return {
                 settings = {
                     live_blame = {
                         enabled = true,
+                    },
+                    live_gutter = {
+                        enabled = false,
+                        edge_navigation = false,  -- This allows users to navigate within a hunk
                     },
                     scene = {
                         diff_preference = 'split',
