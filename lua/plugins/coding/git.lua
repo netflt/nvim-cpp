@@ -1,38 +1,5 @@
 return {
     {
-        "tanvirtin/vgit.nvim",
-        dependencies = {
-            'nvim-lua/plenary.nvim'
-        },
-        keys = {
-            { "<leader>gp","<cmd> lua require('vgit').project_diff_preview() <CR>", desc = "Project diff preview" },
-            { "<leader>gb","<cmd> lua require('vgit').buffer_blame_preview() <CR>", desc = "Buffer blame preview" },
-            { "<leader>gc","<cmd> lua require('vgit').buffer_history_preview() <CR>", desc = "Buffer history preview" },
-            { "<leader>gh","<cmd> lua require('vgit').buffer_hunk_preview() <CR>", desc = "Buffer hunk preview" },
-            { "<leader>gd","<cmd> lua require('vgit').buffer_diff_preview() <CR>", desc = "Buffer diff preview" },
-        },
-        config = function()
-            require('vgit').setup({
-                settings = {
-                    live_blame = {
-                        enabled = true,
-                    },
-                    live_gutter = {
-                        enabled = false,
-                        edge_navigation = false,  -- This allows users to navigate within a hunk
-                    },
-                    scene = {
-                        diff_preference = 'split',
-                        keymaps = {
-                        quit = 'q'
-                        }
-                    },
-                
-                }
-            })
-        end
-    },
-    {
         "kdheepak/lazygit.nvim",
         cmd = {
             "LazyGit",
@@ -53,5 +20,30 @@ return {
         config = function()
             require("telescope").load_extension("lazygit")
         end,
+    },
+
+    {
+        'sindrets/diffview.nvim',
+        event = "VeryLazy"
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        event = "VeryLazy",
+        config = function ()
+            require('gitsigns').setup {
+                current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+                current_line_blame_opts = {
+                        virt_text = true,
+                        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+                        delay = 100,
+                        ignore_whitespace = false,
+                        virt_text_priority = 100,
+                        use_focus = true,
+                    },
+                signcolumn = false,  -- Toggle with `:Gitsigns toggle_signs`
+                current_line_blame_formatter = '[<abbrev_sha>] <author> (<author_time:%R>) - <summary>',
+            }
+        end
     }
+            
 }
