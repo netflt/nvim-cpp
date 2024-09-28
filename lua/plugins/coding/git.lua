@@ -1,7 +1,6 @@
 return {
     {
         "tanvirtin/vgit.nvim",
-        event = "VeryLazy",
         dependencies = {
             'nvim-lua/plenary.nvim'
         },

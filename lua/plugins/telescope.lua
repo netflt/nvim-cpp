@@ -76,6 +76,7 @@ return  { -- Fuzzy Finder (files, lsp, etc)
       vim.keymap.set('n', "gy", builtin.lsp_type_definitions, { desc = "Goto T[y]pe Definition" })
       vim.keymap.set('n', "<leader><space>", ":", {desc = "[S]witch to command mode"})
 
+      vim.keymap.set('n', "<leader>u", "<cmd>TodoTelescope <CR>", {desc = "[T]odo Telescope"})
       vim.keymap.set('n', "<leader>t", "<cmd>ToggleTerm <CR>", {desc = "[T]oggle Terminal"})
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys

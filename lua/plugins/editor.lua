@@ -3,6 +3,8 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
 return {
+    -- Highlight todo, notes, etc in comments
+    { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
     -- icons
     {
         'akinsho/bufferline.nvim', 
@@ -73,6 +75,20 @@ return {
             },
             extensions = { "neo-tree" }
         }
+    },
+    {
+        "RRethy/vim-illuminate",
+        event = "VeryLazy",
+        opts = {
+            delay = 200,
+            large_file_cutoff = 2000,
+            large_file_overrides = {
+                providers = { "lsp" },
+            },
+        },
+        config = function(_, opts)
+            require("illuminate").configure(opts)
+        end
     },
     {
         "folke/noice.nvim",
@@ -199,6 +215,7 @@ return {
             shade_terminals = true
         }
     },
+    
     {
         "nvim-treesitter/nvim-treesitter",
         event = "VeryLazy",
