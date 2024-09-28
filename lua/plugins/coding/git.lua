@@ -5,12 +5,11 @@ return {
             'nvim-lua/plenary.nvim'
         },
         keys = {
-            { "<leader>gp","<cmd> lua require('vgit').buffer_hunk_preview() <CR>", desc = "Buffer hunk preview" },
+            { "<leader>gp","<cmd> lua require('vgit').project_diff_preview() <CR>", desc = "Project diff preview" },
             { "<leader>gb","<cmd> lua require('vgit').buffer_blame_preview() <CR>", desc = "Buffer blame preview" },
+            { "<leader>gc","<cmd> lua require('vgit').buffer_history_preview() <CR>", desc = "Buffer history preview" },
+            { "<leader>gh","<cmd> lua require('vgit').buffer_hunk_preview() <CR>", desc = "Buffer hunk preview" },
             { "<leader>gd","<cmd> lua require('vgit').buffer_diff_preview() <CR>", desc = "Buffer diff preview" },
-            { "<leader>gh","<cmd> lua require('vgit').buffer_history_preview() <CR>", desc = "Buffer history preview" },
-            { "<leader>ghs","<cmd> lua require('vgit').buffer_hunks_preview() <CR>", desc = "Buffer hunks preview" },
-            { "<leader>ghp","<cmd> lua require('vgit').project_diff_preview() <CR>", desc = "Project diff preview" },
         },
         config = function()
             require('vgit').setup({
@@ -50,6 +49,9 @@ return {
         -- order to load the plugin when the command is run for the first time
         keys = {
             { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
-        }
+        },
+        config = function()
+            require("telescope").load_extension("lazygit")
+        end,
     }
 }

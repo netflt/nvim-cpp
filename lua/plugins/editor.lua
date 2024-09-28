@@ -173,39 +173,15 @@ return {
           
     },
     {
-        "echasnovski/mini.indentscope",
-        version = false, -- wait till new 0.7.0 release to put it back on semver
+        "echasnovski/mini.pairs",
+        event = "VeryLazy",
         opts = {
-          -- symbol = "▏",
-          symbol = "│",
-          options = { try_as_border = true },
+            modes = { insert = true, command = true, terminal = false },
+            skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+            skip_ts = { "string" },
+            skip_unbalanced = true,
+            markdown = true,
         },
-        init = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = {
-                "alpha",
-                "dashboard",
-                "fzf",
-                "help",
-                "lazy",
-                "neo-tree",
-                "notify",
-                "toggleterm",
-                "Trouble",
-                "trouble",
-                },
-                callback = function()
-                vim.b.miniindentscope_disable = true
-                end,
-            })
-        end,
-    },
-    {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = true
-        -- use opts = {} for passing setup options
-        -- this is equivalent to setup({}) function
     },
     {
         'akinsho/toggleterm.nvim', 
